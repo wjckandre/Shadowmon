@@ -23,7 +23,8 @@ def save_frame_camera_key(device_num, dir_path, basename, ext='jpg', delay=1, wi
         if key == ord('c'):
             cv2.imwrite('{}_{}.{}'.format(base_path, n, ext), frame)
             n += 1
-            break
+            if n >= 3:
+                break
         elif key == ord('q'):
             break
 
@@ -32,19 +33,28 @@ def save_frame_camera_key(device_num, dir_path, basename, ext='jpg', delay=1, wi
 
 # save_frame_camera_key(0, 'data/temp', 'camera_capture')
 reader = easyocr.Reader(['fr','en'],True) # this needs to run only once to load the model into memory
-result = reader.readtext('data/temp/camera_capture_0.jpg')
-# result = reader.readtext('ok.jpg')
-print(result)
-# print('name : ',result[0][1] , '| hp : ', result[1][1], ' | first attack : ', result[2][1])
-min = result[0][0][0][0]
-idmin = 0
-for i in range(len(result)):
-    print(result[i][1])
-    if min > result[i][0][0][0]:
-        min = result[i][0][0][0]
-        idmin = i
+# result = reader.readtext('data/temp/camera_capture_0.jpg')
+infos = []
+for x in range(0,3):
+    result = reader.readtext(f'data/temp/camera_capture_{x}.jpg')
+    # print(result)
+    # print('name : ',result[0][1] , '| hp : ', result[1][1], ' | first attack : ', result[2][1])
+    min = result[0][0][0][1]
+    idmin = 0
+    for i in range(len(result)):
+        # print(result[i][1])
+        if min > result[i][0][0][1]:
+            min = result[i][0][0][1]
+            idmin = i
+    chaine = result[idmin][1]
+    index_espace = chaine.find(' ')  # Trouver l'index du premier espace
+    print(index_espace)
+    if index_espace != -1:  # Vérifier si un espace a été trouvé
+        chaine = chaine[:index_espace]  # Extraire tout avant le premier espace
+    infos.append(chaine)
 
-infos = (result[idmin][1] , result[0][1] , result[1][1])
-print( infos)
-# cards = Card.where(q=f'name:{result[0][1]} hp:{result[1][1]} attacks.name:{result[2][1]}')
-# print(cards[0])
+
+
+print(infos)
+cards = Card.where(q=f'name:{infos[0]} hp:{infos[1]} attacks.name:{infos[2]}')
+print(cards[0])
