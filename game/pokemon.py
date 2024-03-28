@@ -1,19 +1,20 @@
+from type import *
+
 
 class Pokemon:
-    def __init__(self, nom, hp, type, speed, atkDmg1, atkDmg2, atkType1, atkType2):
+    def __init__(self, nom, hp, type, speed, atkNom1, atkDmg1, atkType1, atkNom2, atkDmg2, atkType2):
         self.nom = nom
         self.type = type
         self.hp = hp
         self.hpMax = hp
         self.speed = speed
-        self.atkDmg1 = atkDmg1
-        self.atkDmg2 = atkDmg2
-        self.atkType1 = atkType1
-        self.atkType2 = atkType2
+        self.atkNom = [atkNom1, atkNom2]
+        self.atkDmg = [atkDmg1, atkDmg2]
+        self.atkType = [atkType1, atkType2]
     
-    def DamageTaken(self, damage):
-        if self.hp > damage:
-            self.hp -= damage
+    def DamageTaken(self, damage, type):
+        if self.hp > damage*TypeChart[type][self.type.value]:
+            self.hp -= damage*TypeChart[type][self.type.value]
         else:
             self.hp = 0
 

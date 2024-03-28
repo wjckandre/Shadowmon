@@ -4,6 +4,7 @@ import os
 from pokemontcgsdk import *
 
 
+
 RestClient.configure('12345678-1234-1234-1234-123456789ABC')
 
 def save_frame_camera_key(device_num, dir_path, basename, ext='jpg', delay=1, window_name='frame'):
@@ -31,7 +32,7 @@ def save_frame_camera_key(device_num, dir_path, basename, ext='jpg', delay=1, wi
     cv2.destroyWindow(window_name)
 
 
-# save_frame_camera_key(0, 'data/temp', 'camera_capture')
+save_frame_camera_key(0, 'data/temp', 'camera_capture')
 reader = easyocr.Reader(['fr','en'],True) # this needs to run only once to load the model into memory
 # result = reader.readtext('data/temp/camera_capture_0.jpg')
 infos = []
@@ -48,7 +49,7 @@ for x in range(0,3):
             idmin = i
     chaine = result[idmin][1]
     index_espace = chaine.find(' ')  # Trouver l'index du premier espace
-    print(index_espace)
+    # print(index_espace)
     if index_espace != -1:  # Vérifier si un espace a été trouvé
         chaine = chaine[:index_espace]  # Extraire tout avant le premier espace
     infos.append(chaine)
