@@ -12,9 +12,9 @@ class Pokemon:
         self.atkDmg = [atkDmg1, atkDmg2]
         self.atkType = [atkType1, atkType2]
     
-    def DamageTaken(self, damage, type):
-        if self.hp > damage*TypeChart[type][self.type.value]:
-            self.hp -= damage*TypeChart[type][self.type.value]
+    def DamageTaken(self, damage):
+        if self.hp > damage:
+            self.hp -= damage
         else:
             self.hp = 0
 
