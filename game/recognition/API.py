@@ -60,7 +60,9 @@ def SearchCard(infos):
     cards = Card.where(q=f'name:{infos[0]} hp:{infos[1]} attacks.name:{infos[2]}')
     return cards[0]
 def SearchPokemon(infos):
-    return pypo.get(name='blastoise')
+    print(infos[0])
+    return pypo.get(name="ditto")
 
-# carte =  SearchPokemon(('deoxys','e'))
+
+# carte =  SearchPokemon(('ditto','e'))
 # print(carte.types[0])

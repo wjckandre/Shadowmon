@@ -22,9 +22,6 @@ TypeChart = [[1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,1],
 
 
 def Avantage_type(type_atk, type_def):
-    print("TypeChart[type_atk.value][type_def.value]    :  ", TypeChart[type_atk.value][type_def.value])
-    print("type_atk.value    :   ", type_atk.value)
-    print("type_def.value    :   ", type_def.value)
     return TypeChart[type_atk.value][type_def.value]
 
 def Def_types(type):
