@@ -4,27 +4,35 @@ from type import *
 from recognition.API import SearchCard, CameraPhotoTexte, SearchPokemon
 
 
-
-txt = CameraPhotoTexte()
-print(txt)
-carte = SearchCard(txt)
-pokemon = SearchPokemon(txt)
 # Pokemon1 = Pokemon("Dracaufeu", 300, Type.FEU, 250, "Growl", 5, Type.NORMAL, "Ember", 20, Type.FEU)
 # Pokemon2 = Pokemon("Tortank", 350, Type.EAU, 100, "Head butt", 10, Type.NORMAL, "Water Canon", 25, Type.EAU)
-if len(carte.attacks) == 1:
-    Pokemon1 = Pokemon(carte.name, int(carte.hp), Def_types(pokemon.types[0]), 0, len(carte.attacks), carte.attacks[0].name, int(carte.attacks[0].damage), Def_types(pokemon.types[0]), carte.attacks[0].name, int(carte.attacks[0].damage), Def_types(pokemon.types[0]))
-else:
-    Pokemon1 = Pokemon(carte.name, int(carte.hp), Def_types(pokemon.types[0]), 0, len(carte.attacks), carte.attacks[0].name, int(carte.attacks[0].damage), Def_types(pokemon.types[0]), carte.attacks[1].name, int(carte.attacks[1].damage), Def_types(pokemon.types[0]))
 
+#########################   POKEMON 1   #########################
 txt = CameraPhotoTexte()
 carte = SearchCard(txt)
 pokemon = SearchPokemon(txt)
-if len(carte.attacks) == 1:
-    Pokemon2 = Pokemon(carte.name, int(carte.hp), Def_types(pokemon.types[0]), 0, len(carte.attacks), carte.attacks[0].name, int(carte.attacks[0].damage), Def_types(pokemon.types[0]), carte.attacks[0].name, int(carte.attacks[0].damage), Def_types(pokemon.types[0]))
-else:
-    Pokemon2 = Pokemon(carte.name, int(carte.hp), Def_types(pokemon.types[0]), 0, len(carte.attacks), carte.attacks[0].name, int(carte.attacks[0].damage), Def_types(pokemon.types[0]), carte.attacks[1].name, int(carte.attacks[1].damage), Def_types(pokemon.types[0]))
+attacksName = []
+attacksDmg = []
+for x in range (0, len(carte.attacks)):
+    attacksName.append(carte.attacks[x].name)
+    attacksDmg.append(int(carte.attacks[x].damage))
+attacksName.append(carte.attacks[len(carte.attacks)-1].name)
+attacksDmg.append(int(carte.attacks[len(carte.attacks)-1].damage))
+Pokemon1 = Pokemon(carte.name, int(carte.hp), Def_types(pokemon.types[0]), 0, len(carte.attacks)-1, attacksName, attacksDmg, Def_types(pokemon.types[0]))
 
-print(Pokemon1.type)
+#########################   POKEMON 2   #########################
+txt = CameraPhotoTexte()
+carte = SearchCard(txt)
+pokemon = SearchPokemon(txt)
+attacksName = []
+attacksDmg = []
+for x in range (0, len(carte.attacks)):
+    attacksName.append(carte.attacks[x].name)
+    attacksDmg.append(int(carte.attacks[x].damage))
+attacksName.append(carte.attacks[len(carte.attacks)-1].name)
+attacksDmg.append(int(carte.attacks[len(carte.attacks)-1].damage))
+Pokemon2 = Pokemon(carte.name, int(carte.hp), Def_types(pokemon.types[0]), 0, len(carte.attacks)-1, attacksName, attacksDmg, Def_types(pokemon.types[0]))
+
 
 nbTours = 0
 while Pokemon1.is_alive() and Pokemon2.is_alive():
