@@ -64,5 +64,6 @@ def SearchPokemon(infos):
     return pypo.get(name="ditto")
 
 
-# carte =  SearchPokemon(('ditto','e'))
-# print(carte.types[0])
+# carte =  SearchCard(('Sprigatito',70,"Scratch"))
+# print(len(carte.attacks), end="")
+# print(" s  s")
