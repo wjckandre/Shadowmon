@@ -25,6 +25,7 @@ def Avantage_type(type_atk, type_def):
     return TypeChart[type_atk.value][type_def.value]
 
 def Def_types(type):
+    # print("type :  ", type)
     if type == "normal":
         return Type.NORMAL
     elif type == "fire":

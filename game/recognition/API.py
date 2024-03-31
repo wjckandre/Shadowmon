@@ -55,12 +55,12 @@ def CameraPhotoTexte():
         if index_espace != -1:  # Vérifier si un espace a été trouvé
             chaine = chaine[:index_espace]  # Extraire tout avant le premier espace
         infos.append(chaine)
-    print(infos)
+    # print(infos)
     return infos
 
 def SearchCard(infos):
     cards = Card.where(q=f'name:{infos[0]} hp:{infos[1]} attacks.name:{infos[2]}')
     return cards[0]
 def SearchPokemon(infos):
-    return pypo.get(name="ditto")
+    return pypo.get(name=infos[0])
 
