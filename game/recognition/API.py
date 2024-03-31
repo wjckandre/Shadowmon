@@ -25,6 +25,7 @@ def save_frame_camera_key(device_num, dir_path, basename, ext='jpg', delay=1, wi
         if key == ord('c'):
             cv2.imwrite('{}_{}.{}'.format(base_path, n, ext), frame)
             n += 1
+            print(f"capture n°{n} taken")
             if n >= 3:
                 break
         elif key == ord('q'):
@@ -54,6 +55,7 @@ def CameraPhotoTexte():
         if index_espace != -1:  # Vérifier si un espace a été trouvé
             chaine = chaine[:index_espace]  # Extraire tout avant le premier espace
         infos.append(chaine)
+    print(infos)
     return infos
 
 def SearchCard(infos):
@@ -62,7 +64,3 @@ def SearchCard(infos):
 def SearchPokemon(infos):
     return pypo.get(name="ditto")
 
-
-# carte =  SearchCard(('Sprigatito',70,"Scratch"))
-# print(len(carte.attacks), end="")
-# print(" s  s")

@@ -10,12 +10,10 @@ from recognition.API import SearchCard, CameraPhotoTexte, SearchPokemon
 #########################   POKEMON 1   #########################
 txt = CameraPhotoTexte()
 carte = SearchCard(txt)
+print(carte)
 pokemon = SearchPokemon(txt)
 attacksName = []
 attacksDmg = []
-
-print(carte.attacks[0].damage)
-
 for x in range (0, len(carte.attacks)):
     attacksName.append(carte.attacks[x].name)
     attacksDmg.append(int(carte.attacks[x].damage))
