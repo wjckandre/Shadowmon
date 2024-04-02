@@ -84,3 +84,4 @@ class Type(Enum):
     ACIER = 16
     FEE = 17
 
+
