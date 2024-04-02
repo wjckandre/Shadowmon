@@ -1,4 +1,4 @@
-# Pokemon Card Battle Game
+# Pokemon Card Battle Game : Shadowmon
 
 Welcome to Shadowmon! This project allows you to bring your Pokemon card collection to life by scanning your cards and battling with them in an exciting virtual arena. Whether you're a seasoned Pokemon Trainer or just starting your journey, this game offers a fun and immersive experience for all fans of the Pokemon universe.
 
