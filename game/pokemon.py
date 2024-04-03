@@ -26,12 +26,15 @@ class Pokemon:
             self.hp = self.hpMax
         else:
             self.hp += heal
-    
+
+    def Revive(self):
+        self.hp = self.hpMax / 2
+
     def is_alive(self):
         return self.hp != 0
     
     def is_dead(self):
-        return self.hp == 0
+        return (self.hp == 0)
     
 
     

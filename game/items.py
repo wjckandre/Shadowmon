@@ -12,19 +12,19 @@ class Items():
     def Use(self, item):
         if item == Item.potion:
             self.potions -= 1
-            self.Pokemon.AddHp(20)
+            self.Pokemon.pokemon_fighting.AddHp(20)
             return 20
         if item == Item.super_potion:
             self.super_potions -= 1
-            self.Pokemon.AddHp(60)
+            self.Pokemon.pokemon_fighting.AddHp(60)
             return 60
         if item == Item.hyper_potion:
             self.hyper_potions -= 1
-            self.Pokemon.AddHp(120)
+            self.Pokemon.pokemon_fighting.AddHp(120)
             return 120
         if item == Item.revive:
             self.revive -= 1
-            self.Pokemon.AddHp(1000)
+            self.Pokemon.pokemon_fighting.Revive()
             return 1000
 
 def Def_Items(item):
