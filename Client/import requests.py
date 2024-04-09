@@ -8,7 +8,7 @@ import pypokedex as pypo
 
 idJoueur = 345
 idRoom = 1
-a = requests.get(f'http://10.10.138.59:5000/createRoom/{idRoom}/{idJoueur}').text
+# a = requests.get(f'http://10.10.138.59:5000/createRoom/{idRoom}/{idJoueur}').text
 # b = requests.get('http://10.10.138.59:5000/').text
 
 # print(a)
@@ -77,16 +77,17 @@ def SearchPokemon(infos):
 
 
 txt1 = CameraPhotoTexte()
+print(txt1)
 carte1 = SearchCard(txt1)
 pokemon1 = SearchPokemon(txt1)
 
-txt2 = CameraPhotoTexte()
-carte2 = SearchCard(txt2)
-pokemon2 = SearchPokemon(txt2)
+# txt2 = CameraPhotoTexte()
+carte2 = SearchCard(txt1)
+pokemon2 = SearchPokemon(txt1)
 
-txt3 = CameraPhotoTexte()
-carte3 = SearchCard(txt3)
-pokemon3 = SearchPokemon(txt3)
+# txt3 = CameraPhotoTexte()
+carte3 = SearchCard(txt1)
+pokemon3 = SearchPokemon(txt1)
 
 
 Player_name = input("Entrez votre nom de joueur : ")
@@ -112,6 +113,6 @@ for i in range(3):
     cartes_nb_attacks.append(len(carte1.attacks)-1)
 
 
-b = requests.get(f'http://10.10.138.59:5000/definition_player/{Player_name}/{cartes_name[0]}/{cartes_hp[0]}/{cartes_type[0]}/{cartes_nb_attacks[0]}/{cartes_attacks_name[0][0]}/{cartes_attacks_dmg[0][0]}/{cartes_attacks_name[0][1]}/{cartes_attacks_dmg[0][1]}/{cartes_name[1]}/{cartes_hp[1]}/{cartes_type[1]}/{cartes_nb_attacks[1]}/{cartes_attacks_name[1][0]}/{cartes_attacks_dmg[1][0]}/{cartes_attacks_name[1][1]}/{cartes_attacks_dmg[1][1]}/{cartes_name[2]}/{cartes_hp[2]}/{cartes_type[2]}/{cartes_nb_attacks[2]}/{cartes_attacks_name[2][0]}/{cartes_attacks_dmg[2][0]}/{cartes_attacks_name[2][1]}/{cartes_attacks_dmg[2][1]}').text
+b = requests.get(f'http://10.10.138.59:5000/definition_player/{Player_name}/{cartes_name[0]}/{cartes_hp[0]}/{cartes_type[0]}/{cartes_nb_attacks[0]}/{cartes_attacks_name[0][0]}/{cartes_attacks_dmg[0][0]}/{cartes_attacks_name[0][1]}/{cartes_attacks_dmg[0][1]}/{cartes_name[1]}/{cartes_hp[1]}/{cartes_type[1]}/{cartes_nb_attacks[1]}/{cartes_attacks_name[1][0]}/{cartes_attacks_dmg[1][0]}/{cartes_attacks_name[1][1]}/{cartes_attacks_dmg[1][1]}/{cartes_name[2]}/{cartes_hp[2]}/{cartes_type[2]}/{cartes_nb_attacks[2]}/{cartes_attacks_name[2][0]}/{cartes_attacks_dmg[2][0]}/{cartes_attacks_name[2][1]}/{cartes_attacks_dmg[2][1]}').json()
 print(b)
 
