@@ -2,35 +2,20 @@ from pokemon import *
 from type import *
 
 class Player():
-    def __init__(self, name, card1, type1, card2, type2, card3, type3):
-        self.name = name
+    def __init__(self,PlayerName, card1_name, card1_hp, card1_type, card1_nb_attack, card1_attack1_name, card1_attack1_dmg, card1_attack2_name, card1_attack2_dmg, card2_name, card2_hp, card2_type, card2_nb_attack, card2_attack1_name, card2_attack1_dmg, card2_attack2_name, card2_attack2_dmg, card3_name, card3_hp, card3_type, card3_nb_attack, card3_attack1_name, card3_attack1_dmg, card3_attack2_name, card3_attack2_dmg):
+        self.name = PlayerName
+        
+        attacksName = [card1_attack1_name, card1_attack2_name]
+        attacksDmg = [card1_attack1_dmg, card1_attack2_dmg]
+        self.Pokemon1 = Pokemon(card1_name, int(card1_hp), Def_types(card1_type), 0, card1_nb_attack, attacksName, attacksDmg, Def_types(card1_type))
 
-        attacksName = []
-        attacksDmg = []
-        for x in range (0, len(card1.attacks)):
-            attacksName.append(card1.attacks[x].name)
-            attacksDmg.append(int(card1.attacks[x].damage))
-        attacksName.append(card1.attacks[len(card1.attacks)-1].name)
-        attacksDmg.append(int(card1.attacks[len(card1.attacks)-1].damage))
-        self.Pokemon1 = Pokemon(card1.name, int(card1.hp), Def_types(type1.types[0]), 0, len(card1.attacks)-1, attacksName, attacksDmg, Def_types(type1.types[0]))
+        attacksName = [card2_attack1_name, card2_attack2_name]
+        attacksDmg = [card2_attack1_dmg, card2_attack2_dmg]
+        self.Pokemon2 = Pokemon(card2_name, int(card2_hp), Def_types(card2_type), 0, card2_nb_attack, attacksName, attacksDmg, Def_types(card2_type))
 
-        attacksName = []
-        attacksDmg = []
-        for x in range (0, len(card2.attacks)):
-            attacksName.append(card2.attacks[x].name)
-            attacksDmg.append(int(card2.attacks[x].damage))
-        attacksName.append(card2.attacks[len(card2.attacks)-1].name)
-        attacksDmg.append(int(card2.attacks[len(card2.attacks)-1].damage))
-        self.Pokemon2 = Pokemon(card2.name, int(card2.hp), Def_types(type2.types[0]), 0, len(card2.attacks)-1, attacksName, attacksDmg, Def_types(type2.types[0]))
-
-        attacksName = []
-        attacksDmg = []
-        for x in range (0, len(card3.attacks)):
-            attacksName.append(card3.attacks[x].name)
-            attacksDmg.append(int(card3.attacks[x].damage))
-        attacksName.append(card3.attacks[len(card3.attacks)-1].name)
-        attacksDmg.append(int(card3.attacks[len(card3.attacks)-1].damage))
-        self.Pokemon3 = Pokemon(card3.name, int(card3.hp), Def_types(type3.types[0]), 0, len(card3.attacks)-1, attacksName, attacksDmg, Def_types(type3.types[0]))
+        attacksName = [card3_attack1_name, card3_attack2_name]
+        attacksDmg = [card3_attack1_dmg, card3_attack2_dmg]
+        self.Pokemon3 = Pokemon(card3_name, int(card3_hp), Def_types(card3_type), 0, card3_nb_attack, attacksName, attacksDmg, Def_types(card3_type))
 
         self.pokemon_fighting = self.Pokemon1
 
