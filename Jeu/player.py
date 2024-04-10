@@ -29,6 +29,7 @@ class Player():
             self.pokemon_fighting = self.Pokemon2
         else:
             self.pokemon_fighting = self.Pokemon3
+        return self.pokemon_fighting
     
     def Is_Team_Dead(self):
         return not(self.Pokemon1.is_alive()) and not(self.Pokemon2.is_alive()) and not(self.Pokemon3.is_alive())

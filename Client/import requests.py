@@ -4,9 +4,10 @@ import cv2
 import os
 from pokemontcgsdk import *
 import pypokedex as pypo
+from time import sleep as tm
 
 
-idJoueur = 345
+
 idRoom = 1
 # a = requests.get(f'http://10.10.138.59:5000/createRoom/{idRoom}/{idJoueur}').text
 # b = requests.get('http://10.10.138.59:5000/').text
@@ -113,6 +114,56 @@ for i in range(3):
     cartes_nb_attacks.append(len(carte1.attacks)-1)
 
 
-b = requests.get(f'http://10.10.138.59:5000/definition_player/{Player_name}/{cartes_name[0]}/{cartes_hp[0]}/{cartes_type[0]}/{cartes_nb_attacks[0]}/{cartes_attacks_name[0][0]}/{cartes_attacks_dmg[0][0]}/{cartes_attacks_name[0][1]}/{cartes_attacks_dmg[0][1]}/{cartes_name[1]}/{cartes_hp[1]}/{cartes_type[1]}/{cartes_nb_attacks[1]}/{cartes_attacks_name[1][0]}/{cartes_attacks_dmg[1][0]}/{cartes_attacks_name[1][1]}/{cartes_attacks_dmg[1][1]}/{cartes_name[2]}/{cartes_hp[2]}/{cartes_type[2]}/{cartes_nb_attacks[2]}/{cartes_attacks_name[2][0]}/{cartes_attacks_dmg[2][0]}/{cartes_attacks_name[2][1]}/{cartes_attacks_dmg[2][1]}').json()
-print(b)
+idJoueur = requests.get(f'http://192.168.2.197:5000/definition_player/{Player_name}/{cartes_name[0]}/{cartes_hp[0]}/{cartes_type[0]}/{cartes_nb_attacks[0]}/{cartes_attacks_name[0][0]}/{cartes_attacks_dmg[0][0]}/{cartes_attacks_name[0][1]}/{cartes_attacks_dmg[0][1]}/{cartes_name[1]}/{cartes_hp[1]}/{cartes_type[1]}/{cartes_nb_attacks[1]}/{cartes_attacks_name[1][0]}/{cartes_attacks_dmg[1][0]}/{cartes_attacks_name[1][1]}/{cartes_attacks_dmg[1][1]}/{cartes_name[2]}/{cartes_hp[2]}/{cartes_type[2]}/{cartes_nb_attacks[2]}/{cartes_attacks_name[2][0]}/{cartes_attacks_dmg[2][0]}/{cartes_attacks_name[2][1]}/{cartes_attacks_dmg[2][1]}').json()
+print(idJoueur)
+if idJoueur == 0:
+    idAdversaire = 1
+else:
+    idAdversaire = 0
 
+
+while requests.get(f'http://192.168.2.197:5000/get_status').json() == "Starting":
+    print("Waiting For Other Player")
+    tm.sleep(3)
+
+nbTours = 0
+while requests.get(f'http://192.168.2.197:5000/get_status').json() != "Game finished":
+    nbTours += 1
+    print('---------------------------')
+    print("Début du tours  :  ", nbTours)
+    print('---------------------------')
+    print(f" Choisissez l'action de { requests.get(f'http://192.168.2.197:5000/get_name_PokemonFighting/{idJoueur}').json()} : ")
+    print("-----------------------------------------")
+    print("|                   |                   |")
+    print("|     ATTAQUE       |       SOINS       |")
+    print("|                   |                   |")
+    print("-----------------------------------------")
+    print("|                   |                   |")
+    print("|     POKEMON       |        FUIR       |")
+    print("|                   |                   |")
+    print("-----------------------------------------")
+    choix = input()
+    if choix == "attaque" or choix == "a":
+        numAtkPoke1 = int(input(f"Numéro de l'attaque choisie pour { requests.get(f'http://192.168.2.197:5000/get_name_PokemonFighting/{idJoueur}').json()} :  (1) { requests.get(f'http://192.168.2.197:5000/get_name_Atk/{idJoueur}/{0}').json()} / { requests.get(f'http://192.168.2.197:5000/get_dmg_Atk/{idJoueur}/{0}').json()}  (2) {requests.get(f'http://192.168.2.197:5000/get_name_Atk/{idJoueur}/{1}').json()} / { requests.get(f'http://192.168.2.197:5000/get_dmg_Atk/{idJoueur}/{1}').json()}   : ")) - 1
+        while numAtkPoke1 != 0 and numAtkPoke1 != 1:
+            numAtkPoke1 = int(input(f"Numéro de l'attaque choisie pour { requests.get(f'http://192.168.2.197:5000/get_name_PokemonFighting/{idJoueur}').json()} :  (1) { requests.get(f'http://192.168.2.197:5000/get_name_Atk/{idJoueur}/{0}').json()} / { requests.get(f'http://192.168.2.197:5000/get_dmg_Atk/{idJoueur}/{0}').json()}  (2) {requests.get(f'http://192.168.2.197:5000/get_name_Atk/{idJoueur}/{1}').json()} / { requests.get(f'http://192.168.2.197:5000/get_dmg_Atk/{idJoueur}/{1}').json()}   : ")) - 1
+    elif choix == "soins" or choix == "s":
+        items = requests.get(f'http://192.168.2.197:5000/get_nb_items/{idJoueur}').json()
+        print(f" Potions : {items[0]} |  Super Potions : {items[1]} |  Hyper Potions : {items[2]} |  Revive : {items[3]}")
+        nom_item = input()
+        print(f"Il vous reste {requests.get(f'http://192.168.2.197:5000/Use_items/{idJoueur}/{nom_item}').json()}")
+    elif choix == "pokemon" or choix == "p":
+        pokemons = requests.get(f'http://192.168.2.197:5000/get_name_Pokemons/{idJoueur}').json()
+        print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
+        switch = input()
+        print(f" Le pokemon au combat est {requests.get(f'http://192.168.2.197:5000/switch_pokemon/{idJoueur}/{switch}').json()}")
+        while not(requests.get(f'http://192.168.2.197:5000/is_PokemonFighting_alive/{idJoueur}').json()):
+            print("Mais ce Pokemon est mort veuillez en choisir un autre")
+            print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
+            switch = input()
+            print(f" Le pokemon au combat est {requests.get(f'http://192.168.2.197:5000/switch_pokemon/{idJoueur}/{switch}').json()}")
+    else:
+        print(f"{Player_name} flew away !  {requests.get(f'http://192.168.2.197:5000/get_Player_name/{idAdversaire}').json()} won the battle")
+        break
+    
+    
