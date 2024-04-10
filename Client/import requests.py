@@ -5,6 +5,7 @@ import os
 from pokemontcgsdk import *
 import pypokedex as pypo
 from time import sleep as tm
+import re
 
 
 
@@ -76,6 +77,16 @@ def SearchCard(infos):
 def SearchPokemon(infos):
     return pypo.get(name=infos[0])
 
+def Switch():
+    pokemons = requests.get(f'http://192.168.2.197:5000/get_name_Pokemons/{idJoueur}').json()
+    print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
+    switch = input()
+    print(f" Le pokemon au combat est {requests.get(f'http://192.168.2.197:5000/switch_pokemon/{idJoueur}/{switch}').json()}")
+    while not(requests.get(f'http://192.168.2.197:5000/is_PokemonFighting_alive/{idJoueur}').json()):
+        print(" // Mais ce Pokemon est mort veuillez en choisir un autre // ")
+        print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
+        switch = input()
+        print(f" Le pokemon au combat est {requests.get(f'http://192.168.2.197:5000/switch_pokemon/{idJoueur}/{switch}').json()}")
 
 txt1 = CameraPhotoTexte()
 print(txt1)
@@ -153,17 +164,26 @@ while requests.get(f'http://192.168.2.197:5000/get_status').json() != "Game fini
         nom_item = input()
         print(f"Il vous reste {requests.get(f'http://192.168.2.197:5000/Use_items/{idJoueur}/{nom_item}').json()}")
     elif choix == "pokemon" or choix == "p":
-        pokemons = requests.get(f'http://192.168.2.197:5000/get_name_Pokemons/{idJoueur}').json()
-        print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
-        switch = input()
-        print(f" Le pokemon au combat est {requests.get(f'http://192.168.2.197:5000/switch_pokemon/{idJoueur}/{switch}').json()}")
-        while not(requests.get(f'http://192.168.2.197:5000/is_PokemonFighting_alive/{idJoueur}').json()):
-            print("Mais ce Pokemon est mort veuillez en choisir un autre")
-            print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
-            switch = input()
-            print(f" Le pokemon au combat est {requests.get(f'http://192.168.2.197:5000/switch_pokemon/{idJoueur}/{switch}').json()}")
+        Switch()
     else:
         print(f"{Player_name} flew away !  {requests.get(f'http://192.168.2.197:5000/get_Player_name/{idAdversaire}').json()} won the battle")
         break
     
-    
+    requests.get(f'http://192.168.2.197:5000/send_choice/{idJoueur}/{choix}/{numAtk}').json()
+    while requests.get(f'http://192.168.2.197:5000/get_status').json() == "Waiting":
+        print("Waiting For Other Player")
+        tm.sleep(2)
+    response = (requests.get(f'http://192.168.2.197:5000/turn').json())
+    if re.search("defeated",response):
+        if re.search(f"{Player_name}",response):
+            print("Votre adversaire gagne ce combat !")
+            break
+        else:
+            print(" Vous gagnez ce combat !")
+            break
+    elif re.search("fainted", response):
+        if re.search(f"{Player_name}", response):
+            print(response)
+            Switch()
+    else:
+        print(response)

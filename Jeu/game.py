@@ -44,81 +44,61 @@ def Choice(choix, numAtk, idJoueur):
     else:
         choixPokemon2 = choix
         numAtkPoke2 = numAtk
-    return choixPokemon1 != None and choixPokemon2 != None
+    if choixPokemon1 != None and choixPokemon2 != None:
+        Status = "Turn ready"
+    else:
+        Status = "Waiting"
+    return Status
 
 
-def Turn():
+def Turn(choixPokemon1, choixPokemon2):
     if randint(1,2) == 1: # CHOI DU JOUEUR PRIORITAIRE
         ########################################################   ATTAQUE DES POKEMONS   ######################################################## '
-        if choixPokemon1 == "attaque":
-            Player2.Pokemon_fighting().DamageTaken( Player1.Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Player1.Pokemon_fighting().type,  Player1.Pokemon_fighting().type))
-            print(f"{ Player1.Pokemon_fighting().name} attaque { Player2.Pokemon_fighting().name} de ", Player1.Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Player1.Pokemon_fighting().type,  Player2.Pokemon_fighting().type))
-            if not (Player2.Pokemon_fighting().is_alive()):
-                print(f"{ Player2.Pokemon_fighting().name} fainted")
-                print('---------------------------')
-                if Player2.Is_Team_Dead():
-                    break
-                print(f"{Player2.Pokemon1.name}  |  {Player2.Pokemon2.name}  |  {Player2.Pokemon3.name} ")
-                Player2.Switch_Pokemon(input())
-                while not(Player2.pokemon_fighting.is_alive()):
-                    print(" // This Pokemon is dead pick another one // ")
-                    print(f"{Player2.Pokemon1.name}  |  {Player2.Pokemon2.name}  |  {Player2.Pokemon3.name} ")
-                    Player2.Switch_Pokemon(input())
+        if (choixPokemon1 == "attaque" or choixPokemon1 == 'a'):
+            Players[1].Pokemon_fighting().DamageTaken( Players[0].Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Players[0].Pokemon_fighting().type,  Players[1].Pokemon_fighting().type))
+            print(f"{ Players[0].Pokemon_fighting().name} attaque { Players[1].Pokemon_fighting().name} de ", Players[0].Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Players[0].Pokemon_fighting().type,  Players[1].Pokemon_fighting().type))
+            if not ( Players[1].Pokemon_fighting().is_alive()):
+                if Players[1].Is_Team_Dead():
+                    return (f'{Players[1]} is defeated')
+                return (f"{ Players[1].Pokemon_fighting().name} fainted")
+                # print('---------------------------')
                 
-        if choixPokemon2 == "attaque":
-            Player1.Pokemon_fighting().DamageTaken( Player2.Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Player2.Pokemon_fighting().type, Player1.Pokemon_fighting().type))
-            print(f"{ Player2.Pokemon_fighting().name} attaque { Player1.Pokemon_fighting().name} de ", Player2.Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Player2.Pokemon_fighting().type, Player1.Pokemon_fighting().type))
-            if not ( Player1.Pokemon_fighting().is_alive()):
-                print(f"{ Player1.Pokemon_fighting().name} fainted")
-                print('---------------------------')
-                if Player1.Is_Team_Dead():
-                    break
-                print(f"{Player1.Pokemon1.name}  |  {Player1.Pokemon2.name}  |  {Player1.Pokemon3.name} ")
-                Player1.Switch_Pokemon(input())
-                while not(Player1.pokemon_fighting.is_alive()):
-                    print(" // This Pokemon is dead pick another one // ")
-                    print(f"{Player1.Pokemon1.name}  |  {Player1.Pokemon2.name}  |  {Player1.Pokemon3.name} ")
-                    Player1.Switch_Pokemon(input())
+                # print(f"{Players[1].Pokemon1.name}  |  {Players[1].Pokemon2.name}  |  {Players[1].Pokemon3.name} ")
+                # Players[1].Switch_Pokemon(input())
+                # while not(Players[1].pokemon_fighting.is_alive()):
+                #     print(f"{Players[1].Pokemon1.name}  |  {Players[1].Pokemon2.name}  |  {Players[1].Pokemon3.name} ")
+                #     Players[1].Switch_Pokemon(input())
                 
+        if (choixPokemon2 == "attaque" or choixPokemon2 == "a"):
+            Players[0].Pokemon_fighting().DamageTaken( Players[1].Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Players[1].Pokemon_fighting().type, Players[0].Pokemon_fighting().type))
+            print(f"{ Players[1].Pokemon_fighting().name} attaque { Players[0].Pokemon_fighting().name} de ", Players[1].Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Players[1].Pokemon_fighting().type, Players[0].Pokemon_fighting().type))
+            if not ( Players[0].Pokemon_fighting().is_alive()):
+                if Players[0].Is_Team_Dead():
+                    return (f'{Players[0]} is defeated')
+                return (f"{ Players[0].Pokemon_fighting().name} fainted")
     else:
         ########################################################   ATTAQUE DES POKEMONS   ########################################################
-        if choixPokemon2 == "attaque":
-            Player1.Pokemon_fighting().DamageTaken( Player2.Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Player2.Pokemon_fighting().type, Player1.Pokemon_fighting().type))
-            print(f"{ Player2.Pokemon_fighting().name} attaque { Player1.Pokemon_fighting().name} de ", Player2.Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Player2.Pokemon_fighting().type, Player1.Pokemon_fighting().type))
-            if not ( Player1.Pokemon_fighting().is_alive()):
-                print(f"{ Player1.Pokemon_fighting().name} fainted")
-                print('---------------------------')
-                if Player1.Is_Team_Dead():
-                    break
-                print(f"{Player1.Pokemon1.name}  |  {Player1.Pokemon2.name}  |  {Player1.Pokemon3.name} ")
-                Player1.Switch_Pokemon(input())
-                while not(Player1.pokemon_fighting.is_alive()):
-                    print(" // This Pokemon is dead pick another one // ")
-                    print(f"{Player1.Pokemon1.name}  |  {Player1.Pokemon2.name}  |  {Player1.Pokemon3.name} ")
-                    Player1.Switch_Pokemon(input())
+        if (choixPokemon2 == "attaque" or choixPokemon2 == "a"):
+            Players[0].Pokemon_fighting().DamageTaken( Players[1].Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Players[1].Pokemon_fighting().type, Players[0].Pokemon_fighting().type))
+            print(f"{ Players[1].Pokemon_fighting().name} attaque { Players[0].Pokemon_fighting().name} de ", Players[1].Pokemon_fighting().atkDmg[numAtkPoke2]*Avantage_type( Players[1].Pokemon_fighting().type, Players[0].Pokemon_fighting().type))
+            if not ( Players[0].Pokemon_fighting().is_alive()):
+                if Players[0].Is_Team_Dead():
+                    return (f'{Players[0]} is defeated')
+                return (f"{ Players[0].Pokemon_fighting().name} fainted")
 
-        if choixPokemon1 == "attaque":
-            Player2.Pokemon_fighting().DamageTaken( Player1.Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Player1.Pokemon_fighting().type,  Player2.Pokemon_fighting().type))
-            print(f"{ Player1.Pokemon_fighting().name} attaque { Player2.Pokemon_fighting().name} de ", Player1.Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Player1.Pokemon_fighting().type,  Player2.Pokemon_fighting().type))
-            if not ( Player2.Pokemon_fighting().is_alive()):
-                print(f"{ Player2.Pokemon_fighting().name} fainted")
-                print('---------------------------')
-                if Player2.Is_Team_Dead():
-                    break
-                print(f"{Player2.Pokemon1.name}  |  {Player2.Pokemon2.name}  |  {Player2.Pokemon3.name} ")
-                Player2.Switch_Pokemon(input())
-                while not(Player2.pokemon_fighting.is_alive()):
-                    print(f"{Player2.Pokemon1.name}  |  {Player2.Pokemon2.name}  |  {Player2.Pokemon3.name} ")
-                    Player2.Switch_Pokemon(input())
-
-    print(f"   -    { Player2.Pokemon_fighting().name} a encore  : ",  Player2.Pokemon_fighting().hp)
-    print(f"   -    { Player1.Pokemon_fighting().name} a encore  : ", Player1.Pokemon_fighting().hp)
+        if (choixPokemon1 == "attaque" or choixPokemon1 == 'a'):
+            Players[1].Pokemon_fighting().DamageTaken( Players[0].Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Players[0].Pokemon_fighting().type,  Players[1].Pokemon_fighting().type))
+            print(f"{ Players[0].Pokemon_fighting().name} attaque { Players[1].Pokemon_fighting().name} de ", Players[0].Pokemon_fighting().atkDmg[numAtkPoke1]*Avantage_type( Players[0].Pokemon_fighting().type,  Players[1].Pokemon_fighting().type))
+            if not ( Players[1].Pokemon_fighting().is_alive()):
+                if Players[1].Is_Team_Dead():
+                    return (f'{Players[1]} is defeated')
+                return (f"{ Players[1].Pokemon_fighting().name} fainted")
+    
+    choixPokemon1 = None
+    choixPokemon2 = None
+    return f"   -    { Players[1].Pokemon_fighting().name} a encore  :   {Players[1].Pokemon_fighting().hp}    -    { Players[0].Pokemon_fighting().name} a encore  :  {Players[0].Pokemon_fighting().hp})"
 
         
-    if Player2.Is_Team_Dead():
-        print(f"{ Player1.name} gagne ce combat !!")
-    elif Player1.Is_Team_Dead():
-        print(f"{ Player2.name} gagne ce combat !!")
 
         
 

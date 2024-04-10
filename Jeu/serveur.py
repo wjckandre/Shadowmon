@@ -1,5 +1,5 @@
 from flask import Flask
-from game import Get_Id_Joueur, Get_Game_Status, Def_Player, Players, Item_Players, Use_item, Choice, Turn
+from game import Get_Id_Joueur, Get_Game_Status, Def_Player, Players, Item_Players, Use_item, Choice, Turn, choixPokemon1, choixPokemon2
 
 app = Flask(__name__)
 
@@ -16,7 +16,6 @@ def Definition(PlayerName, card1_name, card1_hp, card1_type, card1_nb_attack, ca
     Def_Player(PlayerName, card1_name, card1_hp, card1_type, card1_nb_attack, card1_attack1_name, card1_attack1_dmg, card1_attack2_name, card1_attack2_dmg, card2_name, card2_hp, card2_type, card2_nb_attack, card2_attack1_name, card2_attack1_dmg, card2_attack2_name, card2_attack2_dmg, card3_name, card3_hp, card3_type, card3_nb_attack, card3_attack1_name, card3_attack1_dmg, card3_attack2_name, card3_attack2_dmg)
     return Get_Id_Joueur()
 
-@app.route("/choose_action/<idJoueur>/")
 
 @app.route("/get_status")
 def Status():
@@ -68,9 +67,12 @@ def is_PokemonFighting_alive(idJoueur):
 
 @app.route("/send_choice/<idJoueur>/<atk>/<numAtk>")
 def send_choice(idJoueur, atk, numAtk):
-    if Choice(atk, numAtk, idJoueur) == "Turn ready":
-        Turn()
-    return "Choice taken"
+    return Choice(atk, numAtk, idJoueur)
+
+@app.route("/turn") 
+def turn():
+    return Turn(choixPokemon1, choixPokemon2)
+
 
 if __name__ == '__main__':
     room = {}
