@@ -28,18 +28,18 @@ class Items():
             return 1000
 
 def Def_Items(item):
-    if item == "potions":
+    if item == "potions" or item == "p":
         return Item.potion
-    if item == "super potions":
+    if item == "super potions" or item == "sp":
         return Item.super_potion
-    if item == "hyper potions":
+    if item == "hyper potions" or item == "hp":
         return Item.hyper_potion
-    if item == "revive":
+    if item == "revive" or item == "r":
         return Item.revive
     
 
 class Item(Enum):
-    potion = 1
-    super_potion = 2
-    hyper_potion = 3
-    revive = 4
+    potion = 0
+    super_potion = 1
+    hyper_potion = 2
+    revive = 3

@@ -21,23 +21,33 @@ def Get_Id_Joueur():
 def Get_Game_Status():
     return Status
 
-def is_Team_Dead(idJoueur):
+def Set_Game_Status(str):
+    global Status
+    Status = str
+    return Status
+
+def is_team_Dead(idJoueur):
     return Players[idJoueur].Is_Team_Dead()
 
 def Use_item(idJoueur, item):
     Item_Players[idJoueur].Use(Def_Items(item))
-    return Item_Players[idJoueur].Def_Items(item)
+    return Def_Items(item).name
 
 def Def_Player(PlayerName, card1_name, card1_hp, card1_type, card1_nb_attack, card1_attack1_name, card1_attack1_dmg, card1_attack2_name, card1_attack2_dmg, card2_name, card2_hp, card2_type, card2_nb_attack, card2_attack1_name, card2_attack1_dmg, card2_attack2_name, card2_attack2_dmg, card3_name, card3_hp, card3_type, card3_nb_attack, card3_attack1_name, card3_attack1_dmg, card3_attack2_name, card3_attack2_dmg):
     Players.append(Player(PlayerName, card1_name, card1_hp, card1_type, card1_nb_attack, card1_attack1_name, card1_attack1_dmg, card1_attack2_name, card1_attack2_dmg, card2_name, card2_hp, card2_type, card2_nb_attack, card2_attack1_name, card2_attack1_dmg, card2_attack2_name, card2_attack2_dmg, card3_name, card3_hp, card3_type, card3_nb_attack, card3_attack1_name, card3_attack1_dmg, card3_attack2_name, card3_attack2_dmg))
     Item_Players.append(Items(Players[len(Players)-1],1,1,1,1))
     print(Players[len(Players)-1].name, Players[len(Players)-1].Pokemon2.name)
-
+    global Status
     if len(Players) == 2:
         Status = "Game ready"
     return str(len(Players) - 1)
 
 def Choice(choix, numAtk, idJoueur):
+    global Status
+    global choixPokemon1
+    global choixPokemon2
+    global numAtkPoke1
+    global numAtkPoke2
     if idJoueur == 1:
         choixPokemon1 = choix
         numAtkPoke1 = numAtk
@@ -51,7 +61,9 @@ def Choice(choix, numAtk, idJoueur):
     return Status
 
 
-def Turn(choixPokemon1, choixPokemon2):
+def Turn():
+    global choixPokemon1
+    global choixPokemon2
     if randint(1,2) == 1: # CHOI DU JOUEUR PRIORITAIRE
         ########################################################   ATTAQUE DES POKEMONS   ######################################################## '
         if (choixPokemon1 == "attaque" or choixPokemon1 == 'a'):
@@ -96,9 +108,11 @@ def Turn(choixPokemon1, choixPokemon2):
     
     choixPokemon1 = None
     choixPokemon2 = None
-    return f"   -    { Players[1].Pokemon_fighting().name} a encore  :   {Players[1].Pokemon_fighting().hp}    -    { Players[0].Pokemon_fighting().name} a encore  :  {Players[0].Pokemon_fighting().hp})"
+    return f"   -    { Players[1].Pokemon_fighting().name} a encore  :   {Players[1].Pokemon_fighting().hp}    -    { Players[0].Pokemon_fighting().name} a encore  :  {Players[0].Pokemon_fighting().hp}"
 
-        
+
+
+
 
         
 

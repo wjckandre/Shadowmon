@@ -22,7 +22,7 @@ TypeChart = [[1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,1],
 
 
 def Avantage_type(type_atk, type_def):
-    return TypeChart[type_atk.value][type_def.value]
+    return float(TypeChart[type_atk.value][type_def.value])
 
 def Def_types(type):
     # print("type :  ", type)
