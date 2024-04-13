@@ -76,6 +76,7 @@ def turn():
 @app.route("/Stop_game")
 def Stop_game():
     Set_Game_Status("Emergency Stop")
+    return "stop"
 
 if __name__ == '__main__':
     room = {}
