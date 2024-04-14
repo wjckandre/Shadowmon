@@ -21,6 +21,11 @@ def Definition(PlayerName, card1_name, card1_hp, card1_type, card1_nb_attack, ca
 def Status():
     return Get_Game_Status()
 
+@app.route("/set_Status/<status>")
+def new_status(status):
+    Set_Game_Status(status)
+    return Get_Game_Status()
+
 @app.route("/is_Team_dead/<idJoueur>")
 def is_Team_Dead(idJoueur):
     return is_team_Dead(int(idJoueur))
@@ -76,6 +81,7 @@ def turn():
 @app.route("/Stop_game")
 def Stop_game():
     Set_Game_Status("Emergency Stop")
+    return 'Stop'
 
 if __name__ == '__main__':
     room = {}
