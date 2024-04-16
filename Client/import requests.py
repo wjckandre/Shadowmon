@@ -10,7 +10,12 @@ import re
 
 
 idRoom = 1
-ipconfig = "10.10.137.96"
+ipconfig = "192.168.2.197"
+# a = requests.get(f'http://10.10.138.59:5000/createRoom/{idRoom}/{idJoueur}').text
+# b = requests.get('http://10.10.138.59:5000/').text
+
+# print(a)
+# print(b)
 
 
 
@@ -73,6 +78,7 @@ def SearchCard(infos):
 def SearchPokemon(infos):
     return pypo.get(name=infos[0])
 
+
 def Switch():
     pokemons = requests.get(f'http://{ipconfig}:5000/get_name_Pokemons/{idJoueur}').text
     print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
@@ -85,19 +91,21 @@ def Switch():
         print(f" Le pokemon au combat est {requests.get(f'http://{ipconfig}:5000/switch_pokemon/{idJoueur}/{switch}').text}")
 
 # txt1 = CameraPhotoTexte()
-txt1 = ["Wailmer", "110", "Gulp"]
+txt1 = ["Petilil", "50", "Ram"]
 print(txt1)
 carte1 = SearchCard(txt1)
 pokemon1 = SearchPokemon(txt1)
 
+print(pokemon1.types)
 # txt2 = CameraPhotoTexte()
-txt2 = ["Archen", "80", "Flap"]
+txt2 = ["Dialga", "130", "Chrono"]
 print(txt2)
 carte2 = SearchCard(txt2)
 pokemon2 = SearchPokemon(txt2)
+print(pokemon2.types)
 
 # txt3 = CameraPhotoTexte()
-txt3 = ["Dialga", "130", "Chrono"]
+txt3 = ["Tinkatink", "70" ,"Boundless"]
 print(txt3)
 carte3 = SearchCard(txt3)
 pokemon3 = SearchPokemon(txt3)
@@ -130,8 +138,8 @@ attacksDmg = []
 for x in range (0, len(carte2.attacks)):
     attacksName.append(carte2.attacks[x].name)
     attacksDmg.append(int(carte2.attacks[x].damage))
-attacksName.append(carte2.attacks[len(carte1.attacks)-1].name)
-attacksDmg.append(int(carte2.attacks[len(carte1.attacks)-1].damage))
+attacksName.append(carte2.attacks[len(carte2.attacks)-1].name)
+attacksDmg.append(int(carte2.attacks[len(carte2.attacks)-1].damage))
 cartes_attacks_name.append(attacksName)
 cartes_attacks_dmg.append(attacksDmg)
 cartes_name.append(carte2.name)
@@ -144,8 +152,8 @@ attacksDmg = []
 for x in range (0, len(carte3.attacks)):
     attacksName.append(carte3.attacks[x].name)
     attacksDmg.append(int(carte3.attacks[x].damage))
-attacksName.append(carte3.attacks[len(carte1.attacks)-1].name)
-attacksDmg.append(int(carte3.attacks[len(carte1.attacks)-1].damage))
+attacksName.append(carte3.attacks[len(carte3.attacks)-1].name)
+attacksDmg.append(int(carte3.attacks[len(carte3.attacks)-1].damage))
 cartes_attacks_name.append(attacksName)
 cartes_attacks_dmg.append(attacksDmg)
 cartes_name.append(carte3.name)
@@ -170,6 +178,11 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text == "Starting":
 nbTours = 0
 while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished":
     nbTours += 1
+
+    while requests.get(f'http://{ipconfig}:5000/get_status').text == "Starting":
+        print("Waiting For Other Player")
+        tm.sleep(2)
+
     print('---------------------------')
     print("Début du tours  :  ", nbTours)
     print('---------------------------')
@@ -215,7 +228,7 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
         print("Waiting For Other Player")
         tm.sleep(2)
     response = (requests.get(f'http://{ipconfig}:5000/turn').text)
-    print(response)
+   
     if re.search("defeated",response):
         if re.search(f"{Player_name}",response):
             print("Votre adversaire gagne ce combat !")
@@ -224,18 +237,28 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
             print(" Vous gagnez ce combat !")
             break
     elif re.search("fainted", response):
-        if re.search(f"{Player_name}", response):
+        
+        if re.search(f"{requests.get(f'http://{ipconfig}:5000/get_name_PokemonFighting/{idJoueur}').text}", response):
             print(response)
-
-            pokemons = requests.get(f'http://{ipconfig}:5000/get_name_Pokemons/{idJoueur}').text
+            pokemons = requests.get(f'http://{ipconfig}:5000/get_name_Pokemons/{idJoueur}').json()
             print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
             switch = input()
             print(f" Le pokemon au combat est {requests.get(f'http://{ipconfig}:5000/switch_pokemon/{idJoueur}/{switch}').text}")
+            print("Set status :   ", requests.get(f'http://{ipconfig}:5000/set_Status/Choice_ready').text )
             while not(requests.get(f'http://{ipconfig}:5000/is_PokemonFighting_alive/{idJoueur}').text == "True"):
                 print(" // Mais ce Pokemon est mort veuillez en choisir un autre // ")
                 print(f"{pokemons[0]}  |  {pokemons[1]}  |  {pokemons[2]} ")
                 switch = input()
                 print(f" Le pokemon au combat est {requests.get(f'http://{ipconfig}:5000/switch_pokemon/{idJoueur}/{switch}').text}")
-            
+                print("Set status :   ", requests.get(f'http://{ipconfig}:5000/set_Status/Choice_ready').text )
+        else:
+            print("Le pokemon adverse est KO")
     else:
         print(response)
+
+    while not (requests.get(f'http://{ipconfig}:5000/get_status').text == "Choice_ready") :
+        tm.sleep(2)
+        print("Status : ", requests.get(f'http://{ipconfig}:5000/get_status').text)
+        print("Waiting for other player")
+    
+    
