@@ -220,6 +220,7 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
         
     else:
         print(f"{Player_name} flew away !  {requests.get(f'http://{ipconfig}:5000/get_Player_name/{idAdversaire}').text} won the battle")
+        requests.get(f'http://{ipconfig}:5000/set_status/Finish').text
         break
     if choix != 'attaque' or choix != "a":
         numAtkPoke1 = 0
@@ -227,6 +228,9 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
     while requests.get(f'http://{ipconfig}:5000/get_status').text == "Waiting":
         print("Waiting For Other Player")
         tm.sleep(2)
+        if requests.get(f'http://{ipconfig}:5000/get_status').text == "Finish":
+            print("You won the battle")
+            break
     response = (requests.get(f'http://{ipconfig}:5000/turn').text)
    
     if re.search("defeated",response):
@@ -262,3 +266,4 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
         print("Waiting for other player")
     
     
+

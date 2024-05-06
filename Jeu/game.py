@@ -75,7 +75,7 @@ def Turn():
             if not ( Players[1].Pokemon_fighting().is_alive()):
                 if Players[1].Is_Team_Dead():
                     Status = "party done"
-                    return (f'{Players[1]} is defeated')
+                    return (f'{Players[1].name} is defeated')
                 Status = "fainted"
                 return (f"{ Players[1].Pokemon_fighting().name} fainted")
                 # print('---------------------------')
@@ -96,7 +96,7 @@ def Turn():
                     Status = "party done"
                     choixPokemon1 = None
                     choixPokemon2 = None
-                    return (f'{Players[0]} is defeated')
+                    return (f'{Players[0].name} is defeated')
                 Status = "fainted"
                 return (f"{ Players[0].Pokemon_fighting().name} fainted")
     else:
@@ -109,7 +109,7 @@ def Turn():
             if not ( Players[0].Pokemon_fighting().is_alive()):
                 if Players[0].Is_Team_Dead():
                     Status = "party done"
-                    return (f'{Players[0]} is defeated')
+                    return (f'{Players[0].name} is defeated')
                 Status = "fainted"
                 return (f"{ Players[0].Pokemon_fighting().name} fainted")
 
@@ -121,20 +121,20 @@ def Turn():
             if Players[1].Pokemon_fighting().is_dead():
                 if Players[1].Is_Team_Dead():
                     Status = "party done"
-                    return (f'{Players[1]} is defeated')
+                    return (f'{Players[1].name} is defeated')
                 Status = "fainted"
                 return (f"{ Players[1].Pokemon_fighting().name} fainted")
 
     if Players[0].Pokemon_fighting().is_dead():
         if Players[0].Is_Team_Dead():
             Status = "party done"
-            return (f'{Players[0]} is defeated')
+            return (f'{Players[0].name} is defeated')
         Status = "fainted"
         return (f"{ Players[0].Pokemon_fighting().name} fainted")
     if Players[1].Pokemon_fighting().is_dead():
         if Players[1].Is_Team_Dead():
             Status = "party done"
-            return (f'{Players[1]} is defeated')
+            return (f'{Players[1].name} is defeated')
         Status = "fainted"
         return (f"{ Players[1].Pokemon_fighting().name} fainted")
 
