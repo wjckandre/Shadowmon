@@ -9,14 +9,24 @@ Welcome to Shadowmon! This project allows you to bring your Pokemon card collect
 - **Deck Building**: Build and customize your own decks using your scanned Pokemon cards. Choose your favorite Pokemon, trainers, and energy cards to create a powerful team.
 - **Online Multiplayer**: Challenge friends or match up against random opponents in real-time multiplayer battles. Rise through the ranks and become the ultimate Pokemon Master.
 
-## Getting Started
+# Installation Guide
 
-To start playing the Pokemon Card Battle Game, follow these simple steps:
+## Step-by-Step Instructions
 
-1. **Download the App**: Download and install the Pokemon Card Battle Game app from the App Store or Google Play Store.
-2. **Scan Your Cards**: Use your device's camera to scan your physical Pokemon cards and add them to your virtual collection.
-3. **Build Your Deck**: Build your own custom decks using the cards in your collection. Experiment with different combinations to find the perfect strategy.
-4. **Battle Other Players**: Challenge friends or join online multiplayer battles to test your skills against other players from around the world.
+1. **Download the Project**:
+   - Download the project from the Git repository or the provided download link.
+
+2. **Open the Client Subfolder**:
+   - Once the project is downloaded, navigate to the subfolder named "Client".
+
+3. **Launch Client.py**:
+   - Within the "Client" subfolder, locate the file named "Client.py".
+   - Launch this file using a Python interpreter. You can do this by double-clicking the file or using the command line with the command `python Client.py`.
+   
+   Ensure you have Python installed on your system before running the Client.py file. If not, you can download and install Python from the official Python website.
+
+By following these steps, you should be able to install and run your project successfully. If you encounter any issues or need further assistance, feel free to contact us at wojcik.andre2.0@gmail.com for support.
+
 
 ## Feedback and Support
 
