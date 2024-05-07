@@ -11,11 +11,6 @@ import re
 
 idRoom = 1
 ipconfig = "192.168.2.197"
-# a = requests.get(f'http://10.10.138.59:5000/createRoom/{idRoom}/{idJoueur}').text
-# b = requests.get('http://10.10.138.59:5000/').text
-
-# print(a)
-# print(b)
 
 
 
@@ -90,22 +85,22 @@ def Switch():
         switch = input()
         print(f" Le pokemon au combat est {requests.get(f'http://{ipconfig}:5000/switch_pokemon/{idJoueur}/{switch}').text}")
 
-# txt1 = CameraPhotoTexte()
-txt1 = ["Petilil", "50", "Ram"]
+txt1 = CameraPhotoTexte()
+# txt1 = ["Petilil", "50", "Ram"]
 print(txt1)
 carte1 = SearchCard(txt1)
 pokemon1 = SearchPokemon(txt1)
 
 print(pokemon1.types)
-# txt2 = CameraPhotoTexte()
-txt2 = ["Dialga", "130", "Chrono"]
+txt2 = CameraPhotoTexte()
+# txt2 = ["Dialga", "130", "Chrono"]
 print(txt2)
 carte2 = SearchCard(txt2)
 pokemon2 = SearchPokemon(txt2)
 print(pokemon2.types)
 
-# txt3 = CameraPhotoTexte()
-txt3 = ["Tinkatink", "70" ,"Boundless"]
+txt3 = CameraPhotoTexte()
+# txt3 = ["Tinkatink", "70" ,"Boundless"]
 print(txt3)
 carte3 = SearchCard(txt3)
 pokemon3 = SearchPokemon(txt3)
@@ -220,7 +215,6 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
         
     else:
         print(f"{Player_name} flew away !  {requests.get(f'http://{ipconfig}:5000/get_Player_name/{idAdversaire}').text} won the battle")
-        requests.get(f'http://{ipconfig}:5000/set_status/Finish').text
         break
     if choix != 'attaque' or choix != "a":
         numAtkPoke1 = 0
@@ -228,9 +222,6 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
     while requests.get(f'http://{ipconfig}:5000/get_status').text == "Waiting":
         print("Waiting For Other Player")
         tm.sleep(2)
-        if requests.get(f'http://{ipconfig}:5000/get_status').text == "Finish":
-            print("You won the battle")
-            break
     response = (requests.get(f'http://{ipconfig}:5000/turn').text)
    
     if re.search("defeated",response):
@@ -266,4 +257,3 @@ while requests.get(f'http://{ipconfig}:5000/get_status').text != "Game finished"
         print("Waiting for other player")
     
     
-
